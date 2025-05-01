@@ -27,20 +27,18 @@
       text-align: center;
       font-size: 2em;
       color: red;
+      background: black;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 9999;
     }
     .blinking-error {
-      animation: flash 0.8s step-start 6;
+      animation: flash 1s step-start infinite;
     }
     @keyframes flash {
-      50% { opacity: 0; }
-    }
-    #input-line {
-      display: inline;
-    }
-    .blinking {
-      animation: blink 1s step-start infinite;
-    }
-    @keyframes blink {
       50% { opacity: 0; }
     }
     canvas {
@@ -48,13 +46,13 @@
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 999;
+      z-index: 998;
     }
   </style>
 </head>
 <body>
   <div id="terminal"></div>
-  <div id="error-message">ERROR 404 - SYSTEM FAILURE</div>
+  <div id="error-message">ERROR 404 - SYSTEM FAILURE<br><br><b>suspicious malware detected. Turn your device off NOW</b></b></div>
   <canvas id="matrix"></canvas>
 
   <script>
@@ -83,19 +81,12 @@
         terminal.scrollTop = terminal.scrollHeight;
         setTimeout(fakeLogLine, 1000 + Math.random() * 500);
       } else {
-        setTimeout(showErrorMessage, 1000);
+        setTimeout(startMatrixEffect, 1000);
       }
     }
 
-    function showErrorMessage() {
-      terminal.style.display = 'none';
-      errorMessage.style.display = 'block';
-      errorMessage.classList.add('blinking-error');
-      setTimeout(startMatrixEffect, 5000);
-    }
-
     function startMatrixEffect() {
-      errorMessage.style.display = 'none';
+      terminal.style.display = 'none';
       canvas.style.display = 'block';
 
       function resizeCanvas() {
@@ -143,6 +134,16 @@
       }
 
       setInterval(draw, 50);
+
+      // Trigger error after 5-10 seconds
+      const delay = 5000 + Math.random() * 5000;
+      setTimeout(showErrorMessage, delay);
+    }
+
+    function showErrorMessage() {
+      canvas.style.display = 'none';
+      errorMessage.style.display = 'block';
+      errorMessage.classList.add('blinking-error');
     }
 
     fakeLogLine();
