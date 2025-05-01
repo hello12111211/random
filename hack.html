@@ -21,6 +21,19 @@
       white-space: pre-wrap;
       overflow-y: scroll;
     }
+    #error-message {
+      display: none;
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      color: red;
+    }
+    .blinking-error {
+      animation: flash 0.8s step-start 6;
+    }
+    @keyframes flash {
+      50% { opacity: 0; }
+    }
     #input-line {
       display: inline;
     }
@@ -41,10 +54,12 @@
 </head>
 <body>
   <div id="terminal"></div>
+  <div id="error-message">ERROR 404 - SYSTEM FAILURE</div>
   <canvas id="matrix"></canvas>
 
   <script>
     const terminal = document.getElementById("terminal");
+    const errorMessage = document.getElementById("error-message");
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
 
@@ -68,13 +83,19 @@
         terminal.scrollTop = terminal.scrollHeight;
         setTimeout(fakeLogLine, 1000 + Math.random() * 500);
       } else {
-        setTimeout(startMatrixEffect, 1000);
+        setTimeout(showErrorMessage, 1000);
       }
     }
 
-    function startMatrixEffect() {
-      document.body.style.overflow = 'hidden';
+    function showErrorMessage() {
       terminal.style.display = 'none';
+      errorMessage.style.display = 'block';
+      errorMessage.classList.add('blinking-error');
+      setTimeout(startMatrixEffect, 5000);
+    }
+
+    function startMatrixEffect() {
+      errorMessage.style.display = 'none';
       canvas.style.display = 'block';
 
       function resizeCanvas() {
