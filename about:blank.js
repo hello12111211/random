@@ -1,5 +1,5 @@
 <head>
-    <button onclick="openGame()"></button>     //put button name here
+    <button onclick="openGame()">about:blank</button>
     <script>
         
     function openGame() {
