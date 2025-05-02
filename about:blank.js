@@ -1,5 +1,5 @@
 <head>
-    <button onclick="openGame()">Free Vbux</button>
+    <button onclick="openGame()"></button>     //put button name here
     <script>
         
     function openGame() {
