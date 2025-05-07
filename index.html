@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Button That Does Nothing</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-family: 'Comic Sans MS', sans-serif;
+      user-select: none;
+    }
+    button {
+      padding: 60px 80px;
+      font-size: 2rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .counter {
+      margin-top: 10px;
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <button id="theButton">Do Not Press</button>
+  <div class="message" id="message">Waiting for chaos...</div>
+  <div class="counter" id="counter">Total Presses: 0</div>
+
+  <audio id="sound1" src="https://www.myinstants.com/media/sounds/vine-boom.mp3"></audio>
+  <audio id="sound2" src="https://www.myinstants.com/media/sounds/windows-error.mp3"></audio>
+  <audio id="sound3" src="https://www.myinstants.com/media/sounds/goat.mp3"></audio>
+
+  <script>
+    const btn = document.getElementById('theButton');
+    const msg = document.getElementById('message');
+    const counter = document.getElementById('counter');
+    const sounds = ['sound1', 'sound2', 'sound3'];
+    let totalPresses = 0;
+
+    const messages = [
+      "Achievement unlocked: Did absolutely nothing.",
+      "You pressed it. Why?",
+      "Button: 1, You: 0",
+      "✨ GPA boosted by 0.001%",
+      "Reality is now slightly distorted.",
+      "You are now the janitor.",
+      "Nice finger strength.",
+      "You just voided your warranty.",
+      "Congratulations, nothing happened.",
+    ];
+
+    function playRandomSound() {
+      const id = sounds[Math.floor(Math.random() * sounds.length)];
+      document.getElementById(id).play();
+    }
+
+    function getRandomColor() {
+      return `hsl(${Math.floor(Math.random() * 360)}, 80%, 60%)`;
+    }
+
+    btn.addEventListener('click', () => {
+      totalPresses++;
+      btn.style.backgroundColor = getRandomColor();
+      msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+      counter.textContent = `Total Presses: ${totalPresses}`;
+      playRandomSound();
+
+      // 1 in 1000 chance of Rickroll
+      if (Math.floor(Math.random() * 1000) === 0) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      }
+    });
+  </script>
+</body>
+</html>
