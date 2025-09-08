@@ -4,7 +4,7 @@
         
     function openGame() {
         var win = window.open();
-        var url = "";       //put url here
+        var url = "https://unblocked-games.s3.amazonaws.com/index.html";       //put url here
         var hide = '<title>about:blank</title><link rel="icon" type="image/x-icon" href="https://clcem1211.onrender.com/Login.ico">';
 
         // Insert the title and favicon into the new window's document
